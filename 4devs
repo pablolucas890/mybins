@@ -1,1 +1,6 @@
-/usr/local/bin/4devs
+#!/bin/bash
+echo "Generating fake CPF and CNPJ"
+curl -X POST --data 'acao=gerar_cpf&pontuacao=S&cpf_estado=' https://www.4devs.com.br/ferramentas_online.php
+echo ""
+curl -X POST --data 'acao=gerar_cnpj&pontuacao=S&cpf_estado=' https://www.4devs.com.br/ferramentas_online.php
+echo ""

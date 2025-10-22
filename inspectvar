@@ -1,1 +1,1 @@
-/usr/local/bin/inspectvar
+df -h | grep '/var' | awk '{print $5}'

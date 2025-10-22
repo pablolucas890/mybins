@@ -1,1 +1,3 @@
-/usr/local/bin/kfir
+#!/bin/bash
+
+kill -9 $(pgrep firefox)

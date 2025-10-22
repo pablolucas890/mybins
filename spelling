@@ -1,1 +1,2 @@
-/usr/local/bin/spelling
+#!/bin/bash
+hunspell -d pt_BR$1 -p ~/.custom_words | grep "&" | cut -d' ' -f2 | sort | uniq

@@ -1,1 +1,3 @@
-/usr/local/bin/lsall
+#!/bin/bash
+
+eza -lh -s type --no-permissions --no-user

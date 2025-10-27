@@ -1,0 +1,4 @@
+#!/bin/bash
+
+tmux new -d -s $1
+tmux switch-client -t $1

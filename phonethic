@@ -1,0 +1,9 @@
+#/bin/bash
+
+mkdir -p /tmp/phonetics
+rm /tmp/phonetics/audio.mp3
+
+LINK=$(curl -s https://api.dictionaryapi.dev/api/v2/entries/en/$1 | jq . | grep phonetics -A 5 | grep audio | awk '{print $2}' | grep https | sed 's/"//' | sed 's/"//' | sed 's/,//')
+echo $LINK
+wcurl $LINK -o /tmp/phonetics/audio.mp3
+vlc /tmp/phonetics/audio.mp3

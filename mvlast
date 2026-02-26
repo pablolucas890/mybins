@@ -1,0 +1,8 @@
+#!/bin/bash
+FOLDER=$1
+END=$2
+
+cd $(pwd)
+FILE=$(ls -p -t $FOLDER | grep -v / | head -n 1)
+echo $FILE
+mv $FOLDER/$FILE $END

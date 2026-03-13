@@ -1,0 +1,8 @@
+#!/bin/bash
+
+file="$(fzf)"
+if [ -z "$file" ]; then
+  echo ""
+else
+   nano $file
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -f ~/.lastip ]; then
+   LAST_IP=$(cat ~/.lastip)
+else
+  LAST_IP=$(curl -s http://ip-api.com/json | jq | grep query | awk '{print $2}' | xargs)
+  echo $LAST_IP > ~/.lastip
+fi
+
+CURRENT_IP=$(curl -s http://ip-api.com/json | jq | grep query | awk '{print $2}' | xargs)
+
+HAS_IP=0
+for linha in $(cat ~/.lastip); do
+  echo $linha
+  if [ "$linha" == "$CURRENT_IP" ]; then
+    HAS_IP=1
+  fi
+done
+
+if [ $HAS_IP -eq 0 ]; then
+  echo 'É diferente'
+  notify-send "Script" "NOVO IP DETECTADO! VERIFIQUE O PROJETO DE CONTABILIAÇÃO DE USUÁRIO"
+  for i in $(seq 1 10); do
+    echo "Song $i"
+    echo -e "\a"
+    sleep 2
+  done
+fi

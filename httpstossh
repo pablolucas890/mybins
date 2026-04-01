@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -n "$1" ]; then
+  GIT_REMOTE=$1
+else
+  GIT_REMOTE="gitlab"
+fi
+
 DIR=$(pwd)
 cd $DIR
 git remote -v | cut -d "(" -f1 | uniq > /tmp/remotes
@@ -7,5 +13,5 @@ cat /tmp/remotes | awk '{print $1}' > /tmp/remotenames
 cat /tmp/remotenames | sed 's/^/git remote set-url /' > /tmp/begingit
 cat /tmp/remotes | awk '{print $2}' > /tmp/remoteurls
 cat /tmp/remoteurls | awk -F '.com' '{print $2}' | cut -c2- > /tmp/endgit
-cat /tmp/endgit | sed 's/^/git@gitlab.com:/' > /tmp/remotemid
+cat /tmp/endgit | sed "s/^/git@$GIT_REMOTE.com:/" > /tmp/remotemid
 paste -d' ' /tmp/begingit /tmp/remotemid

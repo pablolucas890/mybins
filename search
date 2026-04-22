@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ -n "$(ls .git &> /dev/null)" ]; then
+  git ls-files -co --exclude-standard -z | xargs -0 \
+    grep -RIn --color=always \
+      --exclude="*.log" \
+      --exclude="*.out" \
+      --exclude="*.err" \
+      --exclude="*.gz" \
+      --exclude-dir=node_modules \
+      --exclude-dir=.git \
+      --exclude-dir=dist \
+      --exclude-dir=build \
+      --exclude-dir=.gitlab-ci-local \
+      --exclude-dir=vendor \
+      $1 .
+else
+  grep -RIn --color=always \
+    --exclude="*.log" \
+    --exclude="*.out" \
+    --exclude="*.err" \
+    --exclude="*.gz" \
+    --exclude-dir=node_modules \
+    --exclude-dir=.git \
+    --exclude-dir=dist \
+    --exclude-dir=build \
+    --exclude-dir=.gitlab-ci-local \
+    --exclude-dir=vendor \
+    $1 .
+fi

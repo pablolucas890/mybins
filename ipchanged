@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+
 if [ -f ~/.lastip ]; then
    LAST_IP=$(cat ~/.lastip)
 else
@@ -23,6 +26,7 @@ if [ $HAS_IP -eq 0 ]; then
   for i in $(seq 1 10); do
     echo "Song $i"
     echo -e "\a"
+    aplay /usr/share/sounds/alsa/Front_Center.wav
     sleep 2
   done
 fi

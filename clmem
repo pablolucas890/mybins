@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# systemctl (with sudo)
+sudo bash <<EOF
+  systemctl stop anydesk
+  systemctl stop mariadb
+  systemctl stop apache2
+  systemctl stop tor
+  systemctl stop postgres
+  systemctl stop homebridge
+  systemctl stop mosquitto
+  systemctl stop docker
+  systemctl stop docker.socket
+  systemctl stop bluetooth
+  systemctl stop snap-docker
+EOF
+
+# crontab (non sudo)
+HAS_CRON=$(crontab -l)
+if [ "$HAS_CRON" == "" ]; then
+  echo "no one cron found"
+else
+  echo "cron found, cleaning and backuping"
+  crontab -l > ~/crontab.bkp
+  crontab -r
+fi
